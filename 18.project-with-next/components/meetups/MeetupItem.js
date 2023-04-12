@@ -3,7 +3,10 @@ import Card from "../ui/Card";
 import classes from "./MeetupItem.module.css";
 
 function MeetupItem(props) {
-  const showDetailHandler = () => {};
+  const router = useRouter();
+  const showDetailHandler = () => {
+    router.push("/" + props.id);
+  };
   return (
     <li className={classes.item}>
       <Card>
