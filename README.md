@@ -1,1 +1,2 @@
-full course with maximilian
+#full course with maximilian
+react practice projects
