@@ -24,18 +24,15 @@ const CourseInput = (props) => {
   const onFocusHandler = (e) => {
     setIsValid(true);
   };
+
   return (
     <form onSubmit={formSubmitHandler}>
-      <div className="form-control">
-        <label style={{ color: !isValid ? "red" : "black" }}>Course Goal</label>
+      <div className={`form-control ${!isValid ? " invalid" : ""}`}>
+        <label>Course Goal</label>
         <input
           onFocus={onFocusHandler}
           type="text"
           onChange={goalInputChangeHandler}
-          style={{
-            borderColor: !isValid ? "red" : "black",
-            background: !isValid ? "salmon" : "transparent",
-          }}
         />
       </div>
       <Button type="submit">Add Goal</Button>
