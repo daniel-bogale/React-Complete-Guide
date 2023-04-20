@@ -1,0 +1,17 @@
+button {
+    margin-top: 0.5rem;
+    padding: 5px 10px;
+    color: white;
+    background-color: var(--main-color);
+    max-width: 6rem;
+    border: 0;
+}
+
+button:hover {
+    background-color: var(--main-color-lighter);
+}
+
+button.small {
+    max-width: 4rem;
+    float: right;
+}

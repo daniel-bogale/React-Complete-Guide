@@ -1,0 +1,15 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.form-container label {
+    font-weight: 600;
+    margin: 0.5em 0 0.2rem 0;
+}
+
+.form-container input {
+    border: 1px solid var(--main-color-light);
+    padding: 2px;
+}

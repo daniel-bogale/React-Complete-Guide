@@ -1,0 +1,5 @@
+.user-detail {
+    border: 1px solid var(--main-color-light);
+    padding: 4px;
+    font-weight: 400;
+}
