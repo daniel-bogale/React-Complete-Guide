@@ -13,30 +13,23 @@ const StyledDiv = styled.div`
     font-weight: bold;
     display: block;
     margin-bottom: 0.5rem;
+    color: ${(props) => (props.invalid ? "red" : "inherent")};
   }
 
   & input {
     display: block;
     width: 100%;
-    border: 1px solid #ccc;
+    border: 1px solid ${(props) => (props.invalid ? "red" : "#ccc")};
     font: inherit;
     line-height: 1.5rem;
     padding: 0 0.25rem;
+    background-color: ${(props) => (props.invalid ? "#ffd7d7" : "transparent")};
   }
 
   & input:focus {
     outline: none;
     background: #fad0ec;
     border-color: #8b005d;
-  }
-
-  &.invalid label {
-    color: red;
-  }
-
-  &.invalid input {
-    border-color: red;
-    background-color: #ffd7d7;
   }
 `;
 
@@ -64,8 +57,9 @@ const CourseInput = (props) => {
 
   return (
     <form onSubmit={formSubmitHandler}>
-      <StyledDiv className={!isValid && " invalid"}>
+      <StyledDiv invalid={!isValid}>
         <label>Course Goal</label>
+
         <input
           onFocus={onFocusHandler}
           type="text"
