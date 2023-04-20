@@ -3,30 +3,37 @@ import Buttons from "../UI/Buttons/Buttons";
 import { useState } from "react";
 
 const Form = (props) => {
-  const [username, setUserName] = useState("");
-  const [age, setAge] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userAge, setAge] = useState("");
 
   const setUserNameHandler = (e) => {
-    console.log(username);
     setUserName(e.target.value);
   };
   const setAgeHandler = (e) => {
-    console.log(age);
     setAge(e.target.value);
   };
 
-  const addUserClickedHandler = (val) => {
-    props.onUserAdded();
+  const submitHandler = (e) => {
+    e.preventDefault();
+    props.onUserAdded({
+      name: userName,
+      age: userAge,
+      id: Math.floor(Math.random() * 100),
+    });
+    setAge("");
+    setUserName("");
   };
   return (
-    <form action="" className={styles["form-container"]}>
+    <form
+      action=""
+      className={styles["form-container"]}
+      onSubmit={submitHandler}
+    >
       <label>Username</label>
-      <input type="text" value={username} onChange={setUserNameHandler} />
+      <input type="text" value={userName} onChange={setUserNameHandler} />
       <label>Age (Years)</label>
-      <input type="text" value={age} onChange={setAgeHandler} />
-      <Buttons type="submit" isClicked={addUserClickedHandler}>
-        Add User
-      </Buttons>
+      <input type="number" value={userAge} onChange={setAgeHandler} />
+      <Buttons type="submit">Add User</Buttons>
     </form>
   );
 };
