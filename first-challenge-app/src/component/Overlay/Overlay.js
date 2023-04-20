@@ -14,7 +14,7 @@ const Overlay = (props) => {
     <div className={styles["overlay-container"]} onClick={cancelHandler}>
       <Card>
         <h2>Invalid input</h2>
-        <p>Please enter a valid name and age (non-empty values).</p>
+        <p>{props.message}</p>
         <Buttons className={"small"} okay={props.toggleOverlay} type={"button"}>
           Okay
         </Buttons>

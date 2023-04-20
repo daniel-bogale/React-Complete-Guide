@@ -11,14 +11,26 @@ function App() {
     { name: "Dan", age: 23, id: 344 },
   ];
   const [currentUsers, setCurrentUser] = useState(initialUser);
-
   const [displayValue, setDisplayValue] = useState(true);
+  const [errorMessage, setMessage] = useState(
+    "Please enter a valid name and age (non-empty values)"
+  );
 
   const toggleDisplayValue = () => {
     setDisplayValue((val) => !val);
   };
 
   const addUserHandler = (val) => {
+    if (val.name === "" || val.age === "") {
+      toggleDisplayValue();
+      return;
+    }
+
+    if (val.age < 1) {
+      setMessage("Please enter a valid age (>0)");
+      toggleDisplayValue();
+      return;
+    }
     setCurrentUser((prev) => {
       return [val, ...prev];
     });
@@ -37,6 +49,7 @@ function App() {
       <Overlay
         display={displayValue}
         toggleOverlay={toggleDisplayValue}
+        message={errorMessage}
       ></Overlay>
     </div>
   );

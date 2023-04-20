@@ -8,4 +8,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 100%;
+}
+
+.overlay-container h2 {
+    background-color: var(--main-color);
+    color: white;
+    margin-top: 0;
+    padding: 1rem;
+}
+
+.overlay-container p {
+    margin-left: 1rem;
 }
