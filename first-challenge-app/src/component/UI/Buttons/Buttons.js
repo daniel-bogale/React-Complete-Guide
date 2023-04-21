@@ -9,7 +9,7 @@ const Buttons = (props) => {
   return (
     <button
       className={styles[props.className]}
-      type={props.type}
+      type={props.type || "button"}
       onClick={clickHandler}
     >
       {props.children}

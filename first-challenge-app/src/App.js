@@ -1,8 +1,6 @@
-import styles from "./App.module.css";
-import Card from "./component/UI/Card/Card";
 import Form from "./component/Form/Form";
 import UserField from "./component/UserField/UserField";
-import Overlay from "./component/Overlay/Overlay";
+import Overlay from "./component/Overlay/ErrorModal";
 import { useState } from "react";
 
 function App() {
@@ -11,7 +9,7 @@ function App() {
     { name: "Dan", age: 23, id: 344 },
   ];
   const [currentUsers, setCurrentUser] = useState(initialUser);
-  const [displayValue, setDisplayValue] = useState(true);
+  const [displayValue, setDisplayValue] = useState(false);
   const [errorMessage, setMessage] = useState(
     "Please enter a valid name and age (non-empty values)"
   );
@@ -26,7 +24,7 @@ function App() {
       return;
     }
 
-    if (val.age < 1) {
+    if (+val.age < 1) {
       setMessage("Please enter a valid age (>0)");
       toggleDisplayValue();
       return;
@@ -37,17 +35,13 @@ function App() {
   };
 
   return (
-    <div className={styles.relative}>
-      <Card>
-        <Form onUserAdded={addUserHandler}></Form>
-      </Card>
-      <Card>
-        {currentUsers.map((val) => {
-          return <UserField value={val} key={val.id} />;
-        })}
-      </Card>
+    <div>
+      <Form onUserAdded={addUserHandler}></Form>
+
+      <UserField users={currentUsers} />
+
       <Overlay
-        display={displayValue}
+        errorOccured={displayValue}
         toggleOverlay={toggleDisplayValue}
         message={errorMessage}
       ></Overlay>

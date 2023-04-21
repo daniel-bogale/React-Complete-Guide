@@ -1,10 +1,10 @@
-import styles from "./Overlay.module.css";
+import styles from "./ErrorModal.module.css";
 
 import Card from "../UI/Card/Card";
 import Buttons from "../UI/Buttons/Buttons";
 
 const Overlay = (props) => {
-  if (!props.display) return;
+  if (!props.errorOccured) return;
   const cancelHandler = (e) => {
     if (e.target.className !== styles["overlay-container"]) return;
 
@@ -15,7 +15,7 @@ const Overlay = (props) => {
       <Card>
         <h2>Invalid input</h2>
         <p>{props.message}</p>
-        <Buttons className={"small"} okay={props.toggleOverlay} type={"button"}>
+        <Buttons className={"small"} okay={props.toggleOverlay}>
           Okay
         </Buttons>
       </Card>

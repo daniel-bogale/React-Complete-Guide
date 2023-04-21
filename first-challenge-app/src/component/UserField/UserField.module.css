@@ -1,12 +1,13 @@
 .user-detail-container {
-    padding: 0.5rem 1rem;
+    padding: 1rem;
 }
 
 .user-detail {
     border: 1px solid var(--main-color-light);
-    padding: 4px;
+    padding: 0.15rem;
+    margin-bottom: 1.5rem;
     font-weight: 400;
-    margin-bottom: 0.1rem;
+    list-style-type: none;
 }
 
 .user-detail:last-of-type {

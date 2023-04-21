@@ -1,16 +1,19 @@
 .form-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding: 0.3rem 1rem;
+    padding: 1rem;
+    padding-bottom: 0;
 }
 
-.form-container label {
-    font-weight: 600;
-    margin: 0.5em 0 0.2rem 0;
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
 }
 
-.form-container input {
+input {
+    font: inherit;
+    display: block;
+    width: 100%;
     border: 1px solid var(--main-color-light);
-    padding: 2px;
+    padding: 0.15rem;
+    margin-bottom: 0.5rem;
 }
