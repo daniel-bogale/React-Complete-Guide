@@ -1,7 +1,7 @@
 import Form from "./component/Form/Form";
 import UserField from "./component/UserField/UserField";
 import Overlay from "./component/Overlay/ErrorModal";
-import { useState } from "react";
+import React, { useState } from "react";
 
 function App() {
   const initialUser = [
@@ -35,7 +35,7 @@ function App() {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <Form onUserAdded={addUserHandler}></Form>
 
       <UserField users={currentUsers} />
@@ -45,7 +45,7 @@ function App() {
         toggleOverlay={toggleDisplayValue}
         message={errorMessage}
       ></Overlay>
-    </div>
+    </React.Fragment>
   );
 }
 

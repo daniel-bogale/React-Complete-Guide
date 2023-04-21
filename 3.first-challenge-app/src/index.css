@@ -4,6 +4,10 @@
     --main-color-light: rgb(121, 121, 121);
 }
 
+html {
+    padding: 0;
+}
+
 * {
     box-sizing: border-box;
 }
