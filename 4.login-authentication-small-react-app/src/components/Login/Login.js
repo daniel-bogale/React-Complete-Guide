@@ -11,24 +11,32 @@ const Login = (props) => {
   const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
-  useEffect(() => {
-    const namedTimeOut = setTimeout(() => {
-      console.log(enteredPassword || enteredEmail);
-      setFormIsValid(
-        enteredPassword.trim().length > 6 && enteredEmail.includes("@")
-      );
-    }, 500);
-    return () => {
-      clearTimeout(namedTimeOut);
-    };
-  }, [enteredEmail, enteredPassword]);
+  // useEffect(() => {
+  //   const namedTimeOut = setTimeout(() => {
+  //     console.log(enteredPassword || enteredEmail);
+  //     setFormIsValid(
+  //       enteredPassword.trim().length > 6 && enteredEmail.includes("@")
+  //     );
+  //   }, 500);
+  //   return () => {
+  //     clearTimeout(namedTimeOut);
+  //   };
+  // }, [enteredEmail, enteredPassword]);
 
   const emailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
+    setFormIsValid(
+      enteredPassword.trim().length > 6 && enteredEmail.includes("@")
+    );
   };
 
   const passwordChangeHandler = (event) => {
     setEnteredPassword(event.target.value);
+    console.log(enteredPassword.trim().length > 6);
+    console.log(enteredPassword);
+    setFormIsValid(
+      enteredPassword.trim().length > 6 && enteredEmail.includes("@")
+    );
   };
 
   const validateEmailHandler = () => {
