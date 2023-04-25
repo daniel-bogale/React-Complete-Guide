@@ -23,6 +23,7 @@ const Login = (props) => {
   //   };
   // }, [enteredEmail, enteredPassword]);
 
+  // let's see useReducer
   const emailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
     setFormIsValid(
