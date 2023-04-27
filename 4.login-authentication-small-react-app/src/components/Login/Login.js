@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useReducer, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  useReducer,
+  useContext,
+  useRef,
+} from "react";
 
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
@@ -49,20 +55,20 @@ const Login = (props) => {
     isValid: null,
   });
 
-  // const { isValid: emailIsValid } = emailState;
-  // const { isValid: passIsValid } = passwordState;
+  const { isValid: emailIsValid } = emailState;
+  const { isValid: passIsValid } = passwordState;
 
   // console.log(emailState.isValid);
 
   useEffect(() => {
     const identifier = setTimeout(() => {
-      setFormIsValid(emailState.isValid && passwordState.isValid);
+      setFormIsValid(emailIsValid && passIsValid);
     }, 500);
 
     return () => {
       clearTimeout(identifier);
     };
-  }, [emailState.isValid, passwordState.isValid]);
+  }, [emailIsValid, passIsValid]);
 
   const emailChangeHandler = (event) => {
     dispatchEmail({ type: "USER_INPUT", val: event.target.value });
@@ -91,13 +97,26 @@ const Login = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    ctxVal.loginHandler(emailState.value, passwordState.value);
+    if (formIsValid) {
+      ctxVal.loginHandler(emailState.value, passwordState.value);
+    } else if (!emailIsValid) {
+      emailInputRef.current.focusOnSubmitFail();
+    } else if (!passIsValid) {
+      passwordInputRef.current.focusOnSubmitFail();
+    }
   };
+
+  // const focusOn = useRef();
+
+  const emailInputRef = useRef();
+  const passwordInputRef = useRef();
 
   return (
     <Card className={classes.login}>
       <form onSubmit={submitHandler}>
         <Input
+          ref={emailInputRef}
+          // focusOn={focusOn}
           isValid={emailState.isValid}
           label="E-Mail"
           type="email"
@@ -107,6 +126,8 @@ const Login = (props) => {
           onBlur={validateEmailHandler}
         />
         <Input
+          ref={passwordInputRef}
+          // focusOn={focusOn}
           isValid={passwordState.isValid}
           label="Password"
           type="password"
@@ -117,7 +138,11 @@ const Login = (props) => {
         />
 
         <div className={classes.actions}>
-          <Button type="submit" className={classes.btn} disabled={!formIsValid}>
+          <Button
+            type="submit"
+            className={classes.btn}
+            // disabled={!formIsValid}
+          >
             Login
           </Button>
         </div>
