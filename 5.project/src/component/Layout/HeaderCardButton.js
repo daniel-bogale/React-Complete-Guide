@@ -6,7 +6,9 @@ import CartContext from "../../store/cart_context";
 const HeaderCardButton = (props) => {
   const cartCtx = useContext(CartContext);
 
-  const numberOfCartItems = cartCtx.item.reduce((cur, val) => cur + val, 0);
+  const numberOfCartItems = cartCtx.items.reduce((tot, item) => {
+    return tot + item.amount;
+  }, 0);
   return (
     <button onClick={props.onClick} className={`${styles.button}`}>
       <span className={styles.icon}>

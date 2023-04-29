@@ -3,7 +3,7 @@ import { useReducer } from "react";
 import CartContext from "./cart_context";
 
 const defaultCartState = {
-  item: [],
+  items: [],
   totalAmount: 0,
 };
 const cartReducer = (preState, action) => {
@@ -12,10 +12,9 @@ const cartReducer = (preState, action) => {
     const updatedTotalAmount =
       preState.totalAmount + action.item.price * action.item.amount;
     return {
-      updatedItems: updatedItems,
-      updatedTotalAmount: updatedTotalAmount,
+      items: updatedItems,
+      totalAmount: updatedTotalAmount,
     };
-  } else if (action.type === "REMOVE") {
   }
   return defaultCartState;
 };
@@ -33,7 +32,7 @@ const CardProvider = (props) => {
     dispatchCartAction({ type: "REMOVE", id: id });
   };
   const cartContext = {
-    item: cartState.item,
+    items: cartState.items,
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromHandler,
