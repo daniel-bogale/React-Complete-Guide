@@ -1,6 +1,6 @@
 import styles from "./HeaderCardButton.module.css";
 import CartIcon from "../Cart/CartIcon";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import CartContext from "../../store/cart_context";
 
 const HeaderCardButton = (props) => {
@@ -9,8 +9,25 @@ const HeaderCardButton = (props) => {
     return tot + item.amount;
   }, 0);
 
+  const [bumpBtn, setBumpBtn] = useState(false);
+
+  const btnStyles = `${styles.button} ${bumpBtn ? styles.bump : ""}`;
+  useEffect(() => {
+    if (cartCtx.items.length === 0) {
+      return;
+    }
+
+    const timer = setBumpBtn(true);
+    setTimeout(() => {
+      setBumpBtn(false);
+    }, 300);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [cartCtx.items]);
+
   return (
-    <button onClick={props.onClick} className={`${styles.button} `}>
+    <button onClick={props.onClick} className={btnStyles}>
       <span className={styles.icon}>
         <CartIcon />
       </span>

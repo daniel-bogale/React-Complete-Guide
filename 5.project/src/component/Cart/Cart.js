@@ -17,6 +17,12 @@ const Cart = (props) => {
       amount: 1,
     });
   };
+
+  const orderHandler = () => {
+    console.table(cartCtx.items);
+    console.log(totalAmount);
+    console.log("ordering...");
+  };
   const cartItems = (
     <ul className={styles["cart-items"]}>
       {" "}
@@ -44,7 +50,11 @@ const Cart = (props) => {
         <button className={styles["button--alt"]} onClick={props.onToggleCart}>
           Close
         </button>
-        {hasItems && <button className={styles.button}>Order</button>}{" "}
+        {hasItems && (
+          <button className={styles.button} onClick={orderHandler}>
+            Order
+          </button>
+        )}{" "}
       </div>
     </Modal>
   );
