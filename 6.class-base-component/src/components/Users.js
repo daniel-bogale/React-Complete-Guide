@@ -1,4 +1,4 @@
-import { useState, Component } from "react";
+import { Component } from "react";
 import User from "./User";
 
 import classes from "./Users.module.css";
