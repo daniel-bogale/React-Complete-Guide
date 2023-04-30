@@ -3,11 +3,11 @@ import styles from "./Input.module.css";
 
 const Input = React.forwardRef((props, ref) => {
   const inputRef = useRef();
-  
+
   const focusOnSubmitFail = () => {
     inputRef.current.focus();
   };
-  
+
   useImperativeHandle(ref, () => {
     return { focusOnSubmitFail: focusOnSubmitFail };
   });
