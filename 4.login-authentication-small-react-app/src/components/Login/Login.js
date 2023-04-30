@@ -106,8 +106,6 @@ const Login = (props) => {
     }
   };
 
-  // const focusOn = useRef();
-
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
