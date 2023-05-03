@@ -1,58 +1,87 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import MoviesList from "./components/MoviesList";
 import "./App.css";
+import AddMovie from "./components/AddMovie";
 
 function App() {
-  const dummyMovies = [
-    {
-      id: 1,
-      title: "Some Dummy Movie",
-      openingText: "This is the opening text of the movie",
-      releaseDate: "2021-05-18",
-    },
-  ];
+  const dummyMovies = [];
   const [movies, setMovies] = useState(dummyMovies);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
 
-  async function fetchMovies() {
+  const fetchMovies = useCallback(async () => {
     // fetch'
-    setError(false);
+    setError("");
     setLoading(true);
-    const response = await fetch("https://swapi.dev/api/films");
     try {
+      const response = await fetch(
+        "https://react-first-38e92-default-rtdb.firebaseio.com/movies.json"
+      );
+      if (!response.ok) {
+        throw Error("something went wrong try again");
+      }
       const responseJson = await response.json();
-      const data = responseJson.results;
-      const modifiedData = data.map((movieData) => {
-        return {
-          id: movieData.episode_id,
-          title: movieData.title,
-          openingText: movieData.opening_crawl,
-          releaseDate: movieData.created,
-        };
-      });
+      let data = [];
+      for (const key in responseJson) {
+        data.push({
+          id: key,
+          key: key,
+          title: responseJson[key].title,
+          openingText: responseJson[key].openingText,
+          title: responseJson[key].title,
+        });
+      }
+      console.log(data);
 
       setLoading(false);
-      setMovies(modifiedData);
+      setMovies(data);
     } catch (error) {
-      setError(true);
+      setError(error.message);
+      setLoading(false);
       console.log(error);
     }
+  }, []);
+  useEffect(() => {
+    fetchMovies();
+  }, [fetchMovies]);
+
+  let content = <p>no movie is loaded</p>;
+  if (loading && !error) {
+    content = <p>Loading ...</p>;
+  }
+
+  if (error) {
+    content = <p>{error}</p>;
+  }
+  if (!error && movies.length !== 0 && !loading) {
+    content = <MoviesList movies={movies} />;
+  }
+
+  async function addMovieHandler(movie) {
+    const response = await fetch(
+      "https://react-first-38e92-default-rtdb.firebaseio.com/movies.json",
+      {
+        method: "POST",
+        body: JSON.stringify(movie),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    fetchMovies();
   }
 
   return (
     <React.Fragment>
       <section>
-        <button onClick={fetchMovies}>Fetch Movies</button>
+        <AddMovie onAddMovie={addMovieHandler}></AddMovie>
       </section>
       <section>
-        {loading && !error && <p>Loading ...</p>}
-        {error && <p>unknown error occurred try agin</p>}
-        {!error && !loading && <MoviesList movies={movies} />}
+        <button onClick={fetchMovies}>Fetch Movies</button>
       </section>
+      <section>{content}</section>
     </React.Fragment>
   );
 }
-
 export default App;
