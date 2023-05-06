@@ -50,7 +50,7 @@ const BasicForm = (props) => {
             onChange={nameInputChangeHandler}
           />
         </div>
-        {nameInputHasError && <p className="error-text">must be > 1</p>}
+        {nameInputHasError && <p className="error-text">must be `&gt;` 1</p>}
         {/* <div className="form-control">
           <label htmlFor="name">Last Name</label>
           <input type="text" id="name" />
