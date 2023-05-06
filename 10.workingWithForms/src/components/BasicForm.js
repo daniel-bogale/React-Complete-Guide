@@ -1,14 +1,22 @@
 import useInput from "../hooks/use-input";
 const BasicForm = (props) => {
   const {
-    valueEntered: enteredName,
-    isValid: enteredNameIsValid,
-    hasError: nameInputHasError,
-    valueChangeHandler: nameInputChangeHandler,
-    inputBlurHandler: nameInputBlurHandler,
-    reset: nameInputReset,
-  } = useInput((value) => value.trim() > 0);
+    valueEntered: enteredFirstName,
+    isValid: enteredFirstNameIsValid,
+    hasError: firstNameInputHasError,
+    valueChangeHandler: firstNameInputChangeHandler,
+    inputBlurHandler: firstNameInputBlurHandler,
+    reset: firstNameInputReset,
+  } = useInput((value) => value.trim().length > 0);
 
+  const {
+    valueEntered: enteredLastName,
+    isValid: enteredLastNameIsValid,
+    hasError: lastNameInputHasError,
+    valueChangeHandler: lastNameInputChangeHandler,
+    inputBlurHandler: lastNameInputBlurHandler,
+    reset: lastNameInputReset,
+  } = useInput((value) => value.trim().length > 0);
   const {
     valueEntered: enteredEmail,
     isValid: enteredEmailIsValid,
@@ -18,43 +26,60 @@ const BasicForm = (props) => {
     reset: emailInputReset,
   } = useInput((value) => value.includes("@"));
 
-  let formIsValid = false;
-  if (enteredNameIsValid && enteredEmailIsValid) formIsValid = true;
-
+  let formIsValid =
+    enteredFirstNameIsValid && enteredLastNameIsValid && enteredEmailIsValid;
   const formSubmissionHandler = (event) => {
     event.preventDefault();
 
-    if (enteredNameIsValid && enteredEmailIsValid) {
-      nameInputReset();
+    if (formIsValid) {
+      firstNameInputReset();
+      lastNameInputReset();
       emailInputReset();
     }
   };
 
-  console.log(nameInputHasError, emailInputHasError);
-  const nameInputClass = nameInputHasError
+  const firstNameInputClass = firstNameInputHasError
     ? "form-control invalid"
     : "form-control";
+  const lastNameInputClass = lastNameInputHasError
+    ? "form-control invalid"
+    : "form-control";
+
   const emailInputClass = emailInputHasError
     ? "form-control invalid"
     : "form-control";
+
   return (
     <form onSubmit={formSubmissionHandler}>
-      <div className={nameInputClass}>
-        <div className="form-control">
+      <div
+      // className={firstNameInputClass}
+      >
+        <div className={firstNameInputClass}>
           <label htmlFor="name">First Name</label>
           <input
-            value={enteredName}
+            value={enteredFirstName}
             type="text"
             id="name"
-            onBlur={nameInputBlurHandler}
-            onChange={nameInputChangeHandler}
+            onBlur={firstNameInputBlurHandler}
+            onChange={firstNameInputChangeHandler}
           />
         </div>
-        {nameInputHasError && <p className="error-text">must be `&gt;` 1</p>}
-        {/* <div className="form-control">
+        {firstNameInputHasError && (
+          <p className="error-text">must be `&gt;` 1</p>
+        )}
+        <div className={lastNameInputClass}>
           <label htmlFor="name">Last Name</label>
-          <input type="text" id="name" />
-        </div> */}
+          <input
+            type="text"
+            id="name"
+            value={enteredLastName}
+            onBlur={lastNameInputBlurHandler}
+            onChange={lastNameInputChangeHandler}
+          />
+          {lastNameInputHasError && (
+            <p className="error-text">must be `&gt;` 1</p>
+          )}
+        </div>
       </div>
       <div className={emailInputClass}>
         <label htmlFor="name">E-Mail Address</label>
