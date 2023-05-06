@@ -5,13 +5,12 @@
     width: 100%;
     height: 100vh;
     z-index: 20;
-    background-color: rgba(4, 4, 4, 0.571);
-    backdrop-filter: blur(0.5px);
+    background-color: rgba(0, 0, 0, 0.75);
 }
 
 .modal {
     position: fixed;
-    top: 20vh;
+    top: 15vh;
     left: 5%;
     width: 90%;
     background-color: white;
