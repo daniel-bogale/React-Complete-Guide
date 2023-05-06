@@ -21,3 +21,13 @@
         transform: translateY(0);
     }
 }
+
+.meals-loading {
+    text-align: center;
+    color: white;
+}
+
+.meals-error {
+    text-align: center;
+    color: rgb(255, 0, 0);
+}
