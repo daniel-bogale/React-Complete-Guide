@@ -1,36 +1,27 @@
-import { useState, useEffect } from "react";
+// import { useCallback, useState } from "react";
+import useInput from "../hooks/use-input";
 
 const SimpleInput = (props) => {
-  const [enteredName, setEnteredName] = useState("");
-  const [isTouched, setIsTouched] = useState(false);
+  const {
+    valueEntered: enteredName,
+    isValid: enteredNameIsValid,
+    hasError: nameInputHasError,
+    valueChangeHandler: nameInputChangeHandler,
+    inputBlurHandler: nameInputBlurHandler,
+    reset: nameInputReset,
+  } = useInput((value) => value.trim() > 0);
 
-  const enteredNameIsValid = enteredName.trim() > 0;
-  const nameInputChangeHandler = (e) => {
-    setEnteredName(e.target.value);
-  };
-
-  const nameInputBlurHandler = (e) => {
-    setIsTouched(true);
-  };
+  let formIsValid = false;
+  if (!nameInputHasError) formIsValid = true;
 
   const formSubmissionHandler = (event) => {
     event.preventDefault();
-    setIsTouched(true);
     if (enteredNameIsValid) {
-      console.log(enteredName);
-      setEnteredName("");
-      setIsTouched(false);
+      nameInputReset();
     }
   };
 
-  const nameInputIsInvalid = !enteredNameIsValid && isTouched;
-  const formClass = nameInputIsInvalid
-    ? "form-control invalid"
-    : "form-control";
-
-  useEffect(() => {
-    if (nameInputIsInvalid) console.log("Name Input is valid");
-  }, [nameInputIsInvalid]);
+  const formClass = nameInputHasError ? "form-control invalid" : "form-control";
 
   return (
     <form onSubmit={formSubmissionHandler}>
@@ -43,12 +34,12 @@ const SimpleInput = (props) => {
           onChange={nameInputChangeHandler}
           onBlur={nameInputBlurHandler}
         />
-        {nameInputIsInvalid && (
+        {nameInputHasError && (
           <p className="error-text">value can't be empty</p>
         )}
       </div>
       <div className="form-actions">
-        <button>Submit</button>
+        <button disabled={!formIsValid}>Submit</button>
       </div>
     </form>
   );
