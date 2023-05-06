@@ -9,8 +9,9 @@
 }
 
 .modal {
+    outline: none;
     position: fixed;
-    top: 15vh;
+    top: 16vh;
     left: 5%;
     width: 90%;
     background-color: white;
@@ -19,6 +20,21 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
     z-index: 30;
     animation: slide-down 300ms ease-out forwards;
+    max-height: 84vh;
+    overflow-y: scroll;
+}
+
+.modal::-webkit-scrollbar {
+    width: 10px;
+}
+
+.modal::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+.modal::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
 }
 
 @media (min-width: 768px) {
