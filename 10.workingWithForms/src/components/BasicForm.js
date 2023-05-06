@@ -77,7 +77,7 @@ const BasicForm = (props) => {
             onChange={lastNameInputChangeHandler}
           />
           {lastNameInputHasError && (
-            <p className="error-text">must be `&gt;` 1</p>
+            <p className="error-text">must be &gt; 1</p>
           )}
         </div>
       </div>
