@@ -7,11 +7,6 @@ const defaultCartState = {
   totalAmount: 0,
 };
 
-// const removeAndShiftCardItems = (items, index) => {
-//   return items.filter((item, i) => {
-//     return i !== index;
-//   });
-// };
 const cartReducer = (preState, action) => {
   if (action.type === "ADD") {
     const updatedTotalAmount =
@@ -63,6 +58,10 @@ const cartReducer = (preState, action) => {
     }
     return { items: updatedItems, totalAmount: updatedTotalAmount };
   }
+  if (action.type === "CLEAR") {
+    return defaultCartState;
+  }
+
   return defaultCartState;
 };
 
@@ -78,11 +77,17 @@ const CardProvider = (props) => {
   const removeItemFromHandler = (id) => {
     dispatchCartAction({ type: "REMOVE", id: id });
   };
+
+  const clearCartHandler = () => {
+    dispatchCartAction({ type: "CLEAR" });
+  };
+
   const cartContext = {
     items: cartState.items,
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromHandler,
+    clearCart: clearCartHandler,
   };
 
   return (
