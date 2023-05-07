@@ -4,12 +4,13 @@
     border: none;
     background-color: #4d1601;
     color: white;
-    padding: 0.75rem 3rem;
+    padding: 1.5vh 3vw;
     display: flex;
     justify-content: space-around;
     align-items: center;
     border-radius: 25px;
     font-weight: bold;
+    gap: 5px;
 }
 
 .button:hover,
