@@ -100,10 +100,17 @@ const Cart = (props) => {
 
   const isSubmittingModalContent = <p>Sending order data...</p>;
   const didSubmitModalContent = (
-    <div className={styles.successful}>
-      <CheckSvg />
-      <p>Successfully sent the order!</p>
-    </div>
+    <>
+      <div className={styles.successful}>
+        <CheckSvg />
+        <p>Successfully sent the order!</p>
+      </div>
+      <div className={styles.actions}>
+        <button className={styles["button--alt"]} onClick={props.onToggleCart}>
+          Close
+        </button>
+      </div>
+    </>
   );
   const errorSubmitContent = (
     <div>
