@@ -44,3 +44,11 @@
     background-color: #8a2b06;
     color: white;
 }
+
+.successful {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    /* background-color: blue; */
+}

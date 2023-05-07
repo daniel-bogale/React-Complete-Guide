@@ -38,6 +38,15 @@ const Checkout = (props) => {
       city: enteredCityIsValid,
       postalCode: enteredPostalIsValid,
     });
+    if (!formIsValid) {
+      return;
+    }
+    props.onConfirm({
+      name: enteredName,
+      street: enteredStreet,
+      city: enteredCity,
+      postalCode: enteredPostal,
+    });
   };
 
   const nameInputClass = `${classes.control} ${
