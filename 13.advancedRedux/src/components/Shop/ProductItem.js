@@ -1,20 +1,33 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Card from "../UI/Card";
 import classes from "./ProductItem.module.css";
-import { cartItemDispatchAction } from "../../store/reduxStore";
-
+import { cartAction } from "../../store/cart-slice";
 const ProductItem = (props) => {
   const dispatch = useDispatch();
 
-  const products = useSelector((state) => state.cartItemDetail);
-  const addToCartHandler = (id, e) => {
-    dispatch(cartItemDispatchAction.add(id));
+  const DUMMY_PRODUCT = [
+    {
+      title: "Test Item",
+      description: "This is a first product - amazing!",
+      price: 6,
+      itemId: "p1",
+    },
+    {
+      title: "Test Item 2",
+      description: "This is a first product - amazing!",
+      price: 8,
+      itemId: "p2",
+    },
+  ];
+  const addToCartHandler = (item, e) => {
+    dispatch(cartAction.addItemToCart(item));
   };
   return (
     <>
-      {products.map((product) => {
+      {DUMMY_PRODUCT.map((product) => {
+        // console.log(product.title);
         return (
-          <li key={product.id} className={classes.item}>
+          <li key={product.itemId} className={classes.item}>
             <Card>
               <header>
                 <h3>{product.title}</h3>
@@ -22,7 +35,7 @@ const ProductItem = (props) => {
               </header>
               <p>{product.description}</p>
               <div className={classes.actions}>
-                <button onClick={addToCartHandler.bind(this, product.id)}>
+                <button onClick={addToCartHandler.bind(this, product)}>
                   Add to Cart
                 </button>
               </div>

@@ -1,25 +1,27 @@
 import classes from "./CartItem.module.css";
-import { cartItemDispatchAction } from "../../store/reduxStore";
-import { useDispatch } from "react-redux";
+import { cartAction } from "../../store/cart-slice";
+import { useDispatch, useSelector } from "react-redux";
 
 const CartItem = (props) => {
+  const items = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
-  const addHandler = (id) => {
-    dispatch(cartItemDispatchAction.add(id));
+
+  const addHandler = (item) => {
+    dispatch(cartAction.addItemToCart(item));
   };
   const subHandler = (id) => {
-    dispatch(cartItemDispatchAction.sub(id));
+    dispatch(cartAction.removeItemFromCart(id));
   };
 
   return (
     <>
-      {props.cartItems.map((item) => {
+      {items.map((item) => {
         return (
-          <li key={item.id} className={classes.item}>
+          <li key={item.itemId} className={classes.item}>
             <header>
               <h3>{item.title}</h3>
               <div className={classes.price}>
-                ${item.total.toFixed(2)}
+                ${item.totalPrice.toFixed(2)}
                 <span className={classes.itemprice}>
                   (${item.price.toFixed(2)}/item)
                 </span>
@@ -30,8 +32,8 @@ const CartItem = (props) => {
                 x <span>{item.quantity}</span>
               </div>
               <div className={classes.actions}>
-                <button onClick={subHandler.bind(item, item.id)}>-</button>
-                <button onClick={addHandler.bind(item, item.id)}>+</button>
+                <button onClick={subHandler.bind(this, item.itemId)}>-</button>
+                <button onClick={addHandler.bind(this, item)}>+</button>
               </div>
             </div>
           </li>

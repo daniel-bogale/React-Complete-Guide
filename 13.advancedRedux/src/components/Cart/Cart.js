@@ -4,22 +4,21 @@ import CartItem from "./CartItem";
 import { useSelector } from "react-redux";
 
 const Cart = (props) => {
-  const items = useSelector((state) => state.cartItemDetail);
-  const filteredItems = items.filter((item) => item.quantity > 0);
-  let showCartItems = true;
-  if (filteredItems.length === 0) {
-    showCartItems = false;
+  const totalQuantity = useSelector((state) => state.cart.totalQuantity);
+  let isEmpty = false;
+  if (totalQuantity === 0) {
+    isEmpty = true;
   }
 
   return (
     <Card className={classes.cart}>
-      {<h2>Your Shopping Cart</h2>}
-      {showCartItems && (
+      <h2>Your Shopping Cart</h2>
+      {!isEmpty && (
         <ul>
-          <CartItem cartItems={filteredItems} />
+          <CartItem />
         </ul>
       )}
-      {!showCartItems && <p>No cart is added</p>}
+      {isEmpty && <p>No cart is added</p>}
     </Card>
   );
 };
