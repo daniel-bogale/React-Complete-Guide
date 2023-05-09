@@ -4,34 +4,40 @@ import { useDispatch } from "react-redux";
 
 const CartItem = (props) => {
   const dispatch = useDispatch();
-  const addHandler = (e) => {
-    dispatch(cartItemDispatchAction.add());
+  const addHandler = (id) => {
+    dispatch(cartItemDispatchAction.add(id));
   };
-  const subHandler = (e) => {
-    dispatch(cartItemDispatchAction.sub());
+  const subHandler = (id) => {
+    dispatch(cartItemDispatchAction.sub(id));
   };
-
-  const { title, quantity, total, price } = props.item;
 
   return (
-    <li className={classes.item}>
-      <header>
-        <h3>{title}</h3>
-        <div className={classes.price}>
-          ${total.toFixed(2)}
-          <span className={classes.itemprice}>(${price.toFixed(2)}/item)</span>
-        </div>
-      </header>
-      <div className={classes.details}>
-        <div className={classes.quantity}>
-          x <span>{quantity}</span>
-        </div>
-        <div className={classes.actions}>
-          <button onClick={subHandler}>-</button>
-          <button onClick={addHandler}>+</button>
-        </div>
-      </div>
-    </li>
+    <>
+      {props.cartItems.map((item) => {
+        return (
+          <li key={item.id} className={classes.item}>
+            <header>
+              <h3>{item.title}</h3>
+              <div className={classes.price}>
+                ${item.total.toFixed(2)}
+                <span className={classes.itemprice}>
+                  (${item.price.toFixed(2)}/item)
+                </span>
+              </div>
+            </header>
+            <div className={classes.details}>
+              <div className={classes.quantity}>
+                x <span>{item.quantity}</span>
+              </div>
+              <div className={classes.actions}>
+                <button onClick={subHandler.bind(item, item.id)}>-</button>
+                <button onClick={addHandler.bind(item, item.id)}>+</button>
+              </div>
+            </div>
+          </li>
+        );
+      })}
+    </>
   );
 };
 

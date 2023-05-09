@@ -16,32 +16,51 @@ const cartSlice = createSlice({
   },
 });
 
-const initialCartItemDetail = {
-  title: "Test Item",
-  quantity: 3,
-  total: 18,
-  price: 6,
-};
+const initialCartItemDetail = [
+  {
+    title: "Test Item",
+    quantity: 0,
+    total: 0,
+    description: "This is a first product - amazing!",
+    price: 6,
+    id: "p1",
+  },
+  {
+    title: "Test Item 2",
+    quantity: 0,
+    description: "This is a first product - amazing!",
+    total: 0,
+    price: 8,
+    id: "p2",
+  },
+];
+
 const cartItemDetailSlice = createSlice({
   name: "cartItemDetail",
   initialState: initialCartItemDetail,
   reducers: {
-    add(preState) {
-      return {
-        title: preState.title,
-        quantity: preState.quantity + 1,
-        total: preState.total + preState.price,
-        price: preState.price,
-      };
+    add(preState, action) {
+      let newState = JSON.parse(JSON.stringify(preState));
+      const itemId = newState.findIndex((elem) => {
+        return elem.id === action.payload;
+      });
+
+      const item = newState[itemId];
+      item.quantity += 1;
+      item.total += item.price;
+      return newState;
     },
 
-    sub(preState) {
-      return {
-        title: preState.title,
-        quantity: preState.quantity - 1,
-        total: preState.total - preState.price,
-        price: preState.price,
-      };
+    sub(preState, action) {
+      let newState = JSON.parse(JSON.stringify(preState));
+      const itemId = newState.findIndex((elem) => {
+        return elem.id === action.payload;
+      });
+
+      const item = newState[itemId];
+      item.quantity -= 1;
+      item.total -= item.price;
+      return newState;
     },
   },
 });
