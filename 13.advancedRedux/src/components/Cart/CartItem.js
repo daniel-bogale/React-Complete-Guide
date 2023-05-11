@@ -6,7 +6,7 @@ const CartItem = (props) => {
   const items = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
 
-  const addHandler = (item) => {
+  const addHandler = (item) => { 
     dispatch(cartAction.addItemToCart(item));
   };
   const subHandler = (id) => {
