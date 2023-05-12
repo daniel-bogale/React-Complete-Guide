@@ -6,6 +6,7 @@ import Products from "./components/Shop/Products";
 import Notification from "./components/UI/Notification";
 import { uiAction } from "./store/ui-slice";
 
+let isFirst = true;
 function App() {
   const cartIsVisiblese = useSelector((state) => state.ui.cartIsVisible);
 
@@ -19,7 +20,7 @@ function App() {
         uiAction.showNotification({
           status: "pending",
           title: "Sending...",
-          message: "Sending cart data!",
+          message: "Data is Sending!",
         })
       );
       const response = await fetch(
@@ -34,23 +35,27 @@ function App() {
       }
       dispatch(
         uiAction.showNotification({
-          status: "Success",
+          status: "success",
           title: "Sent",
-          message: "Cart data sent Successfully!",
+          message: "Sent Successfully!",
         })
       );
     };
+    if (isFirst) {
+      isFirst = false;
+      return;
+    }
 
     sendCartData().catch((err) => {
       dispatch(
         uiAction.showNotification({
           status: "error",
           title: "Error!",
-          message: `Sending cart data failed! error`,
+          message: `Sending failed!`,
         })
       );
     });
-  }, [cart, dispatch]);
+  }, [cart]);
 
   return (
     <>
