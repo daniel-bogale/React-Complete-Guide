@@ -23,5 +23,4 @@ const Comments = () => {
     </section>
   );
 };
-
 export default Comments;
