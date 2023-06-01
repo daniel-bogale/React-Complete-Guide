@@ -1,7 +1,7 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import classes from "./AuthForm.module.css";
-import { login } from "../../store/authslice";
+import { initializeToken, login, logout } from "../../store/authslice";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -56,7 +56,16 @@ const AuthForm = () => {
         }
       })
       .then((data) => {
-        dispatch(login(data.idToken));
+        const expirationTime = new Date(
+          new Date().getTime() + +data.expiresIn * 1000
+        );
+        dispatch(
+          login({
+            token: data.idToken,
+            expirationTime: expirationTime.toISOString(),
+          })
+        );
+
         history.replace("/");
       })
       .catch((errorMessage) => {
@@ -64,6 +73,14 @@ const AuthForm = () => {
       });
   };
 
+  useEffect(() => {
+    const { remainingTime } = initializeToken();
+
+    setTimeout(() => {
+      console.log(remainingTime);
+      dispatch(logout());
+    }, remainingTime);
+  }, [dispatch]);
   return (
     <section className={classes.auth}>
       <h1>{isLogin ? "Login" : "Sign Up"}</h1>
