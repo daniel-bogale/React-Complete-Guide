@@ -11,7 +11,6 @@ const ProfileForm = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     const enteredNewPassword = newPasswordInputRef.current.value;
-    console.log(enteredNewPassword);
 
     fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyBTDnpVOGWV5gP41YUdQK3UDJsH8GSRATw",
@@ -19,12 +18,12 @@ const ProfileForm = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          body: JSON.stringify({
-            idToken: token,
-            password: enteredNewPassword,
-            returnSecureToken: false,
-          }),
         },
+        body: JSON.stringify({
+          idToken: token,
+          password: enteredNewPassword,
+          returnSecureToken: false,
+        }),
       }
     ).then((res) => {
       console.log(res);
