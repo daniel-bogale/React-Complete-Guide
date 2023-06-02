@@ -1,4 +1,3 @@
-import { route } from "next/dist/next-server/server/router";
 import { useRouter } from "next/router";
 const DetailPage = () => {
   const router = useRouter();
