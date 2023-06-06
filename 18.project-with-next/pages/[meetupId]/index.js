@@ -1,10 +1,8 @@
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import MeetupDetail from "../../components/meetups/MeetupDetail";
 
 const MeetupDetails = () => {
   const router = useRouter();
-  console.log(router.query.meetupId);
 
   return (
     <MeetupDetail
