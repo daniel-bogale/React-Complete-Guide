@@ -1,3 +1,4 @@
+import Head from "next/head";
 import MeetupList from "../components/meetups/MeetupList";
 
 const DUMMY_MEETUPS = [
@@ -22,6 +23,17 @@ const DUMMY_MEETUPS = [
 ];
 
 const HomePage = () => {
-  return <MeetupList meetups={DUMMY_MEETUPS} />;
+  return (
+    <>
+      <Head>
+        <title>Meetups</title>
+        <meta
+          name="description"
+          content="Browse a huge list of highly active React meetups"
+        ></meta>
+      </Head>
+      <MeetupList meetups={DUMMY_MEETUPS} />;
+    </>
+  );
 };
 export default HomePage;
