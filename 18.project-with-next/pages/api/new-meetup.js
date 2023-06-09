@@ -4,7 +4,8 @@ async function handler(req, res) {
   if (req.method === "POST") {
     const data = req.body;
     const client = await MongoClient.connect(
-      "mongodb+srv://dan:test@cluster0.tlgnfdd.mongodb.net/meetups?retryWrites=true&w=majority"
+      "mongodb+srv://dan:test@cluster0.tlgnfdd.mongodb.net/meetups?retryWrites=true&w=majority",
+      { useUnifiedTopology: false }
     );
 
     const db = client.db();
