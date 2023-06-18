@@ -1,4 +1,4 @@
-function Todos() {
+function Todos(props: {}) {
   return (
     <ul>
       <li>Learn React</li>
