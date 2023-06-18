@@ -8,6 +8,7 @@ const App = () => {
   const [courseGoals, setCourseGoals] = useState([
     { text: "Do all exercises!", id: "g1" },
     { text: "Finish the course!", id: "g2" },
+    { text: "Plan next task!", id: "g3" },
   ]);
 
   const addGoalHandler = (enteredText) => {
